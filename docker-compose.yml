@@ -507,6 +507,22 @@ services:
       - jaeger
     logging: *logging
 
+  # OPAMP
+  opamp:
+    container_name: opamp-server
+    restart: always
+    environment:
+#      - BINDPLANE_CONFIG_USERNAME=admin
+#      - BINDPLANE_CONFIG_PASSWORD=admin
+      - 'BINDPLANE_CONFIG_SERVER_URL=http://localhost:3001'
+      - 'BINDPLANE_CONFIG_REMOTE_URL=ws://localhost:3001'
+      - BINDPLANE_CONFIG_SESSIONS_SECRET=2c23c9d3-850f-4062-a5c8-3f9b814ae144
+      - BINDPLANE_CONFIG_SECRET_KEY=8a5353f7-bbf4-4eea-846d-a6d54296b781
+      - BINDPLANE_CONFIG_LOG_OUTPUT=stdout
+    ports:
+      - '3001:3001'
+    image: 'observiq/bindplane:latest'
+
   # Prometheus
   prometheus:
     image: quay.io/prometheus/prometheus:v2.34.0
